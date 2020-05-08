@@ -1,0 +1,29 @@
+[Unit]
+Description=My Server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node /home/opc/my-server/index.js
+WorkingDirectory=/home/opc/my-server
+User=opc
+Group=opc
+
+# Environment variables:
+Environment=NODE_ENV=production
+
+# Allow many incoming connections
+LimitNOFILE=infinity
+
+# Allow core dumps for debugging
+LimitCORE=infinity
+
+StandardInput=null
+SyslogIdentifier=my-server
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
